@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 
 import '../core/msym.dart';
@@ -212,20 +212,20 @@ class _TxDetailScreenState extends State<TxDetailScreen> {
           ),
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 96),
+              padding: const PageContentInsets(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   _amountHeroCard(),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: kCardGap),
                   _dualTrackCard(),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: kCardGap),
                   _metaCard(),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: kCardGap),
                   _receiptCard(),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: kCardGap),
                   _aaSplitCard(),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: kCardGap),
                   _bottomActions(),
                 ],
               ),
@@ -325,7 +325,7 @@ class _TxDetailScreenState extends State<TxDetailScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: kCardGap),
           // 时间戳
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -416,7 +416,7 @@ class _TxDetailScreenState extends State<TxDetailScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: kCardGap),
           // AI 审计结论横幅
           Container(
             padding: const EdgeInsets.all(12),
@@ -475,7 +475,7 @@ class _TxDetailScreenState extends State<TxDetailScreen> {
               ],
             ),
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: kCardGap),
           // 预算影响指标
           Container(
             padding: const EdgeInsets.all(12),
@@ -535,7 +535,7 @@ class _TxDetailScreenState extends State<TxDetailScreen> {
               ],
             ),
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: kCardGap),
           // 智能标签
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

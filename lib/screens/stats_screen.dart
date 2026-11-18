@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../core/msym.dart';
 import '../core/palette.dart';
@@ -143,15 +143,15 @@ class _StatsScreenState extends State<StatsScreen> {
           Expanded(
             child: SingleChildScrollView(
               key: const PageStorageKey('bill-statistics'),
-              padding: EdgeInsets.fromLTRB(
-                16,
-                16,
-                16,
-                math.max(112, MediaQuery.paddingOf(context).bottom + 24),
+              padding: PageContentInsets(
+                bottom: math.max(
+                  112,
+                  MediaQuery.paddingOf(context).bottom + 24,
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                spacing: 16,
+                spacing: kCardGap,
                 children: [
                   _periodControls(),
                   if (_hasData) ...[
@@ -392,7 +392,7 @@ class _StatsScreenState extends State<StatsScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(child: _summaryTile(false)),
-                const SizedBox(width: 10),
+                const SizedBox(width: kCardGap),
                 Expanded(child: _summaryTile(true)),
               ],
             ),
@@ -483,7 +483,7 @@ class _StatsScreenState extends State<StatsScreen> {
                         ),
                         Text(
                           '居住+餐饮',
-                          style: TS.headline(size: 24, color: C.slate800),
+                          style: TS.headline(size: 18, color: C.slate800),
                         ),
                         Text(
                           '合计 69.5%',
@@ -503,7 +503,7 @@ class _StatsScreenState extends State<StatsScreen> {
           Padding(
             padding: const EdgeInsets.only(top: 4),
             child: Column(
-              spacing: 8,
+              spacing: kCardGap,
               children: [
                 _rankRow(
                   ai: true,
@@ -540,7 +540,7 @@ class _StatsScreenState extends State<StatsScreen> {
                       Expanded(
                         child: _smallMetric('交通出行', '¥680.00', '7.0%', false),
                       ),
-                      const SizedBox(width: 8),
+                      const SizedBox(width: kCardGap),
                       Expanded(
                         child: _smallMetric(
                           'Claude Pro',
@@ -549,7 +549,7 @@ class _StatsScreenState extends State<StatsScreen> {
                           true,
                         ),
                       ),
-                      const SizedBox(width: 8),
+                      const SizedBox(width: kCardGap),
                       Expanded(
                         child: _smallMetric(
                           'OpenAI API',
@@ -711,7 +711,7 @@ class _StatsScreenState extends State<StatsScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(child: _budgetTile(false)),
-              const SizedBox(width: 10),
+              const SizedBox(width: kCardGap),
               Expanded(child: _budgetTile(true)),
             ],
           ),
@@ -841,7 +841,7 @@ class _StatsScreenState extends State<StatsScreen> {
     return Row(
       children: [
         Expanded(child: _exportButton(StatsReportFormat.excel)),
-        const SizedBox(width: 10),
+        const SizedBox(width: kCardGap),
         Expanded(child: _exportButton(StatsReportFormat.pdf)),
       ],
     );

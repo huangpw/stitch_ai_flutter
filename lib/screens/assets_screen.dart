@@ -1,6 +1,6 @@
 import 'dart:ui' show ImageFilter;
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../core/msym.dart';
 import '../core/palette.dart';
@@ -65,20 +65,20 @@ class _AssetsScreenState extends State<AssetsScreen> {
                 // ---- 主滚动内容 ----
                 Positioned.fill(
                   child: SingleChildScrollView(
-                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 128),
+                    padding: const PageContentInsets(bottom: 128),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         _netAssetCard(),
-                        const SizedBox(height: 14),
+                        const SizedBox(height: kCardGap),
                         _debitSection(),
-                        const SizedBox(height: 14),
+                        const SizedBox(height: kCardGap),
                         _walletSection(),
-                        const SizedBox(height: 14),
+                        const SizedBox(height: kCardGap),
                         _overseasSection(),
-                        const SizedBox(height: 14),
+                        const SizedBox(height: kCardGap),
                         _investSection(),
-                        const SizedBox(height: 14),
+                        const SizedBox(height: kCardGap),
                         _syncMappingCard(),
                       ],
                     ),
@@ -445,11 +445,11 @@ class _AssetsScreenState extends State<AssetsScreen> {
             firstChild: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const SizedBox(height: 14),
+                const SizedBox(height: kCardGap),
                 Container(height: 1, color: _kSurfaceContainer.withValues(alpha: 0.6)),
-                const SizedBox(height: 14),
+                const SizedBox(height: kCardGap),
                 for (var i = 0; i < children.length; i++) ...[
-                  if (i > 0) const SizedBox(height: 12),
+                  if (i > 0) const SizedBox(height: kCardGap),
                   children[i],
                 ],
               ],
@@ -809,16 +809,16 @@ class _AssetsScreenState extends State<AssetsScreen> {
                       TS.body(size: 15, weight: FontWeight.w700, color: _kOnSurface)),
             ],
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: kCardGap),
           toggleRow(
             title: '微信 / 支付宝流水自动核销',
             sub: '开启后每晚自动同步移动端交易单并归集到对应账目',
             value: _autoReconcile,
             onChanged: (v) => setState(() => _autoReconcile = v),
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: kCardGap),
           Container(height: 1, color: _kSurfaceContainer),
-          const SizedBox(height: 14),
+          const SizedBox(height: kCardGap),
           toggleRow(
             title: 'AI 算力支出自动映射外币卡',
             sub: '识别 OpenAI、Claude、Cursor 等账单并自动挂载至外币专卡',
@@ -845,7 +845,7 @@ class _AssetsScreenState extends State<AssetsScreen> {
       child: SafeArea(
         top: false,
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const PageContentInsets(),
           child: Container(
             height: 48,
             decoration: BoxDecoration(

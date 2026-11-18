@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 
 import '../core/msym.dart';
@@ -61,18 +61,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Expanded(
             // Tab 页：底部留白（116）给悬浮胶囊导航
             child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(16, 10, 16, 116),
+              padding: const PageContentInsets(bottom: 116),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   _profileCard(),
-                  const SizedBox(height: 14),
+                  const SizedBox(height: kCardGap),
                   _notificationStrip(),
-                  const SizedBox(height: 14),
+                  const SizedBox(height: kCardGap),
                   _assetsCard(),
-                  const SizedBox(height: 14),
+                  const SizedBox(height: kCardGap),
                   _menuGroup(),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: kCardGap),
                   _securityFooter(),
                 ],
               ),
@@ -325,7 +325,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: kCardGap),
           // 个性签名条
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -349,7 +349,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: kCardGap),
           // 四格记账统计
           Container(
             padding: const EdgeInsets.only(top: 8),

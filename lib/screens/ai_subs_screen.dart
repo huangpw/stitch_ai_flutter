@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../core/msym.dart';
 import '../core/palette.dart';
@@ -7,7 +7,7 @@ import '../widgets/common.dart';
 import '../widgets/m_icon.dart';
 
 /// AI 订阅与充值控制台（设计稿 ai_2）— 底部导航「AI订阅」Tab。
-/// 含顶部毛玻璃导航、算力余量监控卡片、活跃订阅清单与充值扣款明细。
+/// 展示订阅与充值记录；第三方余额监控待接入接口后启用。
 class AiSubsScreen extends StatelessWidget {
   const AiSubsScreen({super.key});
 
@@ -35,18 +35,19 @@ class AiSubsScreen extends StatelessWidget {
           ),
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 120),
+              padding: const PageContentInsets(bottom: 120),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   _heroBanner(context),
-                  const SizedBox(height: 24),
-                  _balanceSection(context),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: kCardGap),
+                  // 尚未接入第三方余额接口，暂不展示算力余量。
+                  // _balanceSection(context),
+                  // const SizedBox(height: kCardGap),
                   _subsSection(context),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: kCardGap),
                   _flowSection(context),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: kCardGap),
                   _addButton(context),
                 ],
               ),
@@ -215,7 +216,9 @@ class AiSubsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 10),
+                  // 余额预警依赖第三方余额接口，暂不展示。
+                  /*
+                  const SizedBox(width: kCardGap),
                   Expanded(
                     child: GestureDetector(
                       onTap: () => Navigator.of(context).pushNamed('/ai-alert'),
@@ -272,6 +275,7 @@ class AiSubsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  */
                 ],
               ),
             ],
@@ -281,6 +285,8 @@ class AiSubsScreen extends StatelessWidget {
     );
   }
 
+  // 待接入第三方余额接口后恢复该区域。
+  /*
   // ===================== API 算力与充值余量 =====================
   Widget _balanceSection(BuildContext context) {
     return Column(
@@ -305,7 +311,7 @@ class AiSubsScreen extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: kCardGap),
         const _ApiCard(
           icon: MSym.smart_toy,
           iconBg: C.slate100,
@@ -329,7 +335,7 @@ class AiSubsScreen extends StatelessWidget {
           leftAccent: true,
           onTapDetail: true,
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: kCardGap),
         const _ApiCard(
           icon: MSym.psychology,
           iconBg: C.indigo50,
@@ -348,7 +354,7 @@ class AiSubsScreen extends StatelessWidget {
           rateAlert: '已绑定 Visa ****9014',
           rateAlertColor: C.slate600,
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: kCardGap),
         const _ApiCard(
           icon: MSym.token,
           iconBg: C.blue50,
@@ -376,6 +382,7 @@ class AiSubsScreen extends StatelessWidget {
       ],
     );
   }
+  */
 
   // ===================== 活跃订阅清单 =====================
   Widget _subsSection(BuildContext context) {
@@ -446,6 +453,7 @@ class AiSubsScreen extends StatelessWidget {
     ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: kCardGap,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -461,13 +469,11 @@ class AiSubsScreen extends StatelessWidget {
             Text('月固定 \$100.00', style: TS.mono(size: 13, color: C.slate500)),
           ],
         ),
-        const SizedBox(height: 12),
         for (final s in subs) ...[
           GestureDetector(
             onTap: () => Navigator.of(context).pushNamed('/ai-detail'),
             child: _subItem(s),
           ),
-          const SizedBox(height: 8),
         ],
       ],
     );
@@ -598,6 +604,7 @@ class AiSubsScreen extends StatelessWidget {
     ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: kCardGap,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -616,10 +623,11 @@ class AiSubsScreen extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 12),
         for (final f in items) ...[
-          _flowItem(f),
-          const SizedBox(height: 8),
+          GestureDetector(
+            onTap: () => Navigator.of(context).pushNamed('/ai-detail'),
+            child: _flowItem(f),
+          ),
         ],
       ],
     );
@@ -721,6 +729,8 @@ class AiSubsScreen extends StatelessWidget {
 
 // ===================== 私有数据与组件 =====================
 
+// 余额监控组件暂存，待第三方余额接口接入后恢复。
+/*
 /// API 卡片徽标风格。
 enum _BadgeStyle { critical, healthy, running }
 
@@ -1015,6 +1025,7 @@ class _ApiCard extends StatelessWidget {
     );
   }
 }
+*/
 
 /// 订阅条目数据。
 class _Sub {
@@ -1097,7 +1108,7 @@ class _QuickAddModalState extends State<_QuickAddModal> {
       padding:
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Container(
-        margin: const EdgeInsets.all(16),
+        margin: const PageContentInsets(),
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
           color: Colors.white,

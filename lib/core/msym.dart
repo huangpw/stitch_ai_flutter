@@ -2,7 +2,7 @@
 // GENERATED — Material Symbols icon codepoints used across the Stitch design screens.
 // Outline glyphs come from assets/fonts/MaterialSymbolsOutlined.ttf;
 // legacy names (wechat, phone_iphone, ...) come from Flutter's bundled MaterialIcons font.
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class MSym {
   MSym._();

@@ -1,6 +1,6 @@
 import 'dart:ui' show ImageFilter;
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../core/msym.dart';
 import '../core/palette.dart';
@@ -54,13 +54,22 @@ class _NavShellState extends State<NavShell> {
       extendBody: true,
       body: AppTabNavigation(
         selectTab: _selectTab,
-        child: IndexedStack(
-          index: _tab,
+        child: Stack(
+          fit: StackFit.expand,
           children: [
             for (var i = 0; i < _tabs.length; i++)
-              TickerMode(
-                enabled: _tab == i,
-                child: ExcludeSemantics(excluding: _tab != i, child: _tabs[i]),
+              // 由 Offstage 统一处理绘制与语义可见性，保留各页状态。
+              Offstage(
+                key: ValueKey('main-tab-$i'),
+                offstage: _tab != i,
+                child: TickerMode(
+                  enabled: _tab == i,
+                  child: Semantics(
+                    container: true,
+                    explicitChildNodes: true,
+                    child: _tabs[i],
+                  ),
+                ),
               ),
           ],
         ),
@@ -135,7 +144,7 @@ class _NavShellState extends State<NavShell> {
       child: SafeArea(
         top: false,
         child: Container(
-          margin: const EdgeInsets.fromLTRB(20, 0, 20, 12),
+          margin: const EdgeInsets.fromLTRB(kPageInset, 0, kPageInset, kPageInset),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(999),
             boxShadow: const [
@@ -250,7 +259,7 @@ class QuickEntrySheet extends StatelessWidget {
     return SafeArea(
       top: false,
       child: Container(
-        margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+        margin: const EdgeInsets.fromLTRB(kPageInset, 0, kPageInset, kPageInset),
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -278,10 +287,10 @@ class QuickEntrySheet extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TS.body(size: 12, color: C.slate500),
             ),
-            const SizedBox(height: 16),
-            for (final (icon, title, sub, color, route) in entries)
+            const SizedBox(height: kCardGap),
+            for (final (index, (icon, title, sub, color, route)) in entries.indexed)
               Padding(
-                padding: const EdgeInsets.only(bottom: 10),
+                padding: EdgeInsets.only(top: index == 0 ? 0 : kCardGap),
                 child: Material(
                   color: Colors.transparent,
                   child: InkWell(

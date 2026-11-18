@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 
 import 'core/palette.dart';
+import 'core/semantics_diagnostics.dart';
 import 'core/type.dart';
 import 'screens/about_screen.dart';
 import 'screens/add_expense_screen.dart';
@@ -16,6 +17,8 @@ import 'screens/books_screen.dart';
 import 'screens/budget_screen.dart';
 import 'screens/edit_profile_screen.dart';
 import 'screens/login_screen.dart';
+import 'screens/monthly_budget_screen.dart';
+import 'screens/monthly_finance_screens.dart';
 import 'screens/notifications_screen.dart';
 import 'screens/register_screen.dart';
 import 'screens/search_screen.dart';
@@ -28,11 +31,17 @@ import 'widgets/nav_shell.dart';
 /// 依据 Stitch 设计稿 1:1 还原（glacial_cyber_finance / light_luxury_cyber_finance 设计系统）。
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.dark,
-    statusBarBrightness: Brightness.light,
-  ));
+  assert(() {
+    installSemanticsDiagnostics();
+    return true;
+  }());
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.light,
+    ),
+  );
   runApp(StitchAiApp(initialRoute: _webInitialRoute()));
 }
 
@@ -97,6 +106,18 @@ class StitchAiApp extends StatelessWidget {
         '/edit-profile': (_) => const EditProfileScreen(), // _3 编辑个人资料
         '/books': (_) => const BooksScreen(), // _12 账本管理
         '/budget': (_) => const BudgetScreen(), // 独立预算控制中心
+        '/monthly-budget': (context) {
+          final month = ModalRoute.of(context)?.settings.arguments;
+          return MonthlyBudgetScreen(month: month is DateTime ? month : null);
+        },
+        '/monthly-income': (context) {
+          final month = ModalRoute.of(context)?.settings.arguments;
+          return MonthlyIncomeScreen(month: month is DateTime ? month : null);
+        },
+        '/monthly-balance': (context) {
+          final month = ModalRoute.of(context)?.settings.arguments;
+          return MonthlyBalanceScreen(month: month is DateTime ? month : null);
+        },
         '/search': (_) => const SearchScreen(), // _14 全局搜索
         '/ai-detail': (_) => const AiDetailScreen(), // ai_1 AI充值与订阅详情
         '/ai-scan': (_) => const AiScanScreen(), // ai_4 智能票据识别

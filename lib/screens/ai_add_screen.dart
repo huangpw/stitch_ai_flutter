@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../core/msym.dart';
 import '../core/palette.dart';
@@ -119,7 +119,7 @@ class _AiAddScreenState extends State<AiAddScreen> {
             title: '记一笔AI消费',
             actions: [
               HeaderIconButton(
-                icon: MSym.document_scanner,
+                icon: MSym.image,
                 onTap: () => Navigator.of(context).pushNamed('/ai-scan'),
               ),
               const SizedBox(width: 8),
@@ -128,27 +128,25 @@ class _AiAddScreenState extends State<AiAddScreen> {
           ),
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+              padding: const PageContentInsets(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const SizedBox(height: 12),
                   _topTabs(),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: kCardGap),
                   _modeSwitcher(),
-                  const SizedBox(height: 14),
+                  const SizedBox(height: kCardGap),
                   if (_mode == 0) ...[
                     _planCard(),
-                    const SizedBox(height: 14),
+                    const SizedBox(height: kCardGap),
                     _billingCard(),
                   ] else ...[
                     _rechargeAmountCard(),
-                    const SizedBox(height: 14),
+                    const SizedBox(height: kCardGap),
                     _platformCard(),
                   ],
-                  const SizedBox(height: 14),
+                  const SizedBox(height: kCardGap),
                   _paymentCard(),
-                  const SizedBox(height: 24),
                 ],
               ),
             ),
@@ -335,11 +333,11 @@ class _AiAddScreenState extends State<AiAddScreen> {
           Column(
             children: [
               for (var row = 0; row < 3; row++) ...[
-                if (row > 0) const SizedBox(height: 10),
+                if (row > 0) const SizedBox(height: kCardGap),
                 Row(
                   children: [
                     Expanded(child: _planCell(row * 2)),
-                    const SizedBox(width: 10),
+                    const SizedBox(width: kCardGap),
                     Expanded(child: _planCell(row * 2 + 1)),
                   ],
                 ),
@@ -612,7 +610,7 @@ class _AiAddScreenState extends State<AiAddScreen> {
                       color: C.slate900)),
             ],
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: kCardGap),
           Row(
             children: [
               Expanded(
@@ -638,7 +636,7 @@ class _AiAddScreenState extends State<AiAddScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: kCardGap),
           // 自动续费待付开关
           Container(
             padding: const EdgeInsets.all(10),
@@ -793,6 +791,7 @@ class _AiAddScreenState extends State<AiAddScreen> {
           const SizedBox(height: 16),
           // 档位预设胶囊组
           Column(
+            spacing: kCardGap,
             children: [
               for (final row in const [
                 <String>['20.00', '50.00', '100.00'],
@@ -801,12 +800,11 @@ class _AiAddScreenState extends State<AiAddScreen> {
                 Row(
                   children: [
                     for (var i = 0; i < row.length; i++) ...[
-                      if (i > 0) const SizedBox(width: 10),
+                      if (i > 0) const SizedBox(width: kCardGap),
                       Expanded(child: _presetCell(row[i])),
                     ],
                   ],
                 ),
-                const SizedBox(height: 10),
               ],
             ],
           ),
@@ -1050,7 +1048,7 @@ class _AiAddScreenState extends State<AiAddScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: kCardGap),
           Column(
             children: [
               option(
@@ -1063,7 +1061,7 @@ class _AiAddScreenState extends State<AiAddScreen> {
                 sub: 'org-8y9T...prod • 当前可用 \u002412.40',
                 subColor: C.slate500,
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: kCardGap),
               option(
                 index: 1,
                 icon: MSym.psychology,
@@ -1074,7 +1072,7 @@ class _AiAddScreenState extends State<AiAddScreen> {
                 sub: 'wksp-core • 当前余量 \u00248.50',
                 subColor: C.slate400,
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: kCardGap),
               option(
                 index: 2,
                 icon: MSym.blur_on,
@@ -1248,7 +1246,7 @@ class _AiAddScreenState extends State<AiAddScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: kCardGap),
           Column(
             children: [
               channel(
@@ -1266,7 +1264,7 @@ class _AiAddScreenState extends State<AiAddScreen> {
                 sub: 'USD / CNY 自动购汇记账 • 额度充裕',
                 subColor: C.slate500,
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: kCardGap),
               channel(
                 index: 1,
                 badge: cardBadge(
@@ -1281,7 +1279,7 @@ class _AiAddScreenState extends State<AiAddScreen> {
                 sub: '国内镜像与聚合平台极速结算',
                 subColor: C.slate400,
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: kCardGap),
               channel(
                 index: 2,
                 badge: cardBadge(
@@ -1296,7 +1294,7 @@ class _AiAddScreenState extends State<AiAddScreen> {
                 sub: '免手续费实时扣划',
                 subColor: C.slate400,
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: kCardGap),
               channel(
                 index: 3,
                 badge: cardBadge(
@@ -1386,7 +1384,7 @@ class _AiAddScreenState extends State<AiAddScreen> {
       child: SafeArea(
         top: false,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+          padding: const PageContentInsets(),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

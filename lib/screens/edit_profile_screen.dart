@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 
 import '../core/msym.dart';
@@ -33,8 +33,7 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final _nickCtrl = TextEditingController(text: '陈晨 (Alex Chen)');
   final _nickFocus = FocusNode();
-  final _bioCtrl =
-      TextEditingController(text: '认真记录每一笔生活开销，量入为出，追求极简与财务自由');
+  final _bioCtrl = TextEditingController(text: '认真记录每一笔生活开销，量入为出，追求极简与财务自由');
   final _bioFocus = FocusNode();
   List<_ProfileTag> _tags = const [
     _ProfileTag('极客开发者', _kSecondary),
@@ -107,8 +106,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       builder: (ctx) => AlertDialog(
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: Text('添加身份标签',
-            style: TS.body(size: 16, weight: FontWeight.w600, color: _kOnSurface)),
+        title: Text(
+          '添加身份标签',
+          style: TS.body(size: 16, weight: FontWeight.w600, color: _kOnSurface),
+        ),
         content: TextField(
           controller: ctrl,
           autofocus: true,
@@ -122,14 +123,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child:
-                Text('取消', style: TS.body(size: 14, color: _kOutline)),
+            child: Text('取消', style: TS.body(size: 14, color: _kOutline)),
           ),
           TextButton(
             onPressed: () => Navigator.pop(ctx, ctrl.text.trim()),
-            child: Text('添加',
-                style: TS.body(
-                    size: 14, weight: FontWeight.w600, color: C.emerald600)),
+            child: Text(
+              '添加',
+              style: TS.body(
+                size: 14,
+                weight: FontWeight.w600,
+                color: C.emerald600,
+              ),
+            ),
           ),
         ],
       ),
@@ -157,9 +162,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             Row(
               children: [
                 Expanded(
-                  child: Text('更换个人头像照片',
-                      style: TS.body(
-                          size: 16, weight: FontWeight.w600, color: _kOnSurface)),
+                  child: Text(
+                    '更换个人头像照片',
+                    style: TS.body(
+                      size: 16,
+                      weight: FontWeight.w600,
+                      color: _kOnSurface,
+                    ),
+                  ),
                 ),
                 GestureDetector(
                   onTap: () => Navigator.pop(ctx),
@@ -170,8 +180,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       color: _kSurfaceContainer,
                       shape: BoxShape.circle,
                     ),
-                    child:
-                        const Center(child: MIcon(MSym.close, size: 16, color: _kOutline)),
+                    child: const Center(
+                      child: MIcon(MSym.close, size: 16, color: _kOutline),
+                    ),
                   ),
                 ),
               ],
@@ -211,9 +222,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Center(
-                  child: Text('取消',
-                      style: TS.body(
-                          size: 12, weight: FontWeight.w500, color: _kOutline)),
+                  child: Text(
+                    '取消',
+                    style: TS.body(
+                      size: 12,
+                      weight: FontWeight.w500,
+                      color: _kOutline,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -233,9 +249,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           // ---- 统一毛玻璃顶栏（返回 + 标题 + 保存）----
           GlassHeader.back(
             title: '编辑个人资料',
-            actions: [
-              HeaderIconButton(icon: MSym.check, onTap: _save),
-            ],
+            actions: [HeaderIconButton(icon: MSym.check, onTap: _save)],
           ),
           Expanded(
             child: Stack(
@@ -243,15 +257,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 // ---- 主体滚动内容 ----
                 Positioned.fill(
                   child: SingleChildScrollView(
-                    padding:
-                        EdgeInsets.fromLTRB(16, 16, 16, 140 + bottomInset),
+                    padding: PageContentInsets(bottom: 140 + bottomInset),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         _avatarCard(),
-                        const SizedBox(height: 14),
+                        const SizedBox(height: kCardGap),
                         _profileFormCard(),
-                        const SizedBox(height: 14),
+                        const SizedBox(height: kCardGap),
                         _securityCard(),
                       ],
                     ),
@@ -267,8 +280,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 // ---- 顶部吐司 ----
                 Positioned(
                   top: 16,
-                  left: 16,
-                  right: 16,
+                  left: kPageInset,
+                  right: kPageInset,
                   child: IgnorePointer(
                     ignoring: !_showToast,
                     child: AnimatedOpacity(
@@ -291,14 +304,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        border: const Border(
-          top: BorderSide(color: _kSurfaceHigh),
-        ),
+        border: const Border(top: BorderSide(color: _kSurfaceHigh)),
         boxShadow: const [
-          BoxShadow(color: Color(0x0A191C20), blurRadius: 16, offset: Offset(0, -4)),
+          BoxShadow(
+            color: Color(0x0A191C20),
+            blurRadius: 16,
+            offset: Offset(0, -4),
+          ),
         ],
       ),
-      padding: EdgeInsets.fromLTRB(16, 12, 16, 12 + bottomInset),
+      padding: PageContentInsets(bottom: kPageInset + bottomInset),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -320,9 +335,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 children: [
                   const MIcon(MSym.done_all, size: 19, color: Colors.white),
                   const SizedBox(width: 8),
-                  Text('保存修改并更新',
-                      style: TS.body(
-                          size: 15, weight: FontWeight.w600, color: Colors.white)),
+                  Text(
+                    '保存修改并更新',
+                    style: TS.body(
+                      size: 15,
+                      weight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -335,8 +355,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 6),
               child: Center(
-                child: Text('取消',
-                    style: TS.body(size: 14, color: _kOutline)),
+                child: Text('取消', style: TS.body(size: 14, color: _kOutline)),
               ),
             ),
           ),
@@ -353,7 +372,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         borderRadius: BorderRadius.circular(999),
         border: Border.all(color: _kSurfaceHigh),
         boxShadow: const [
-          BoxShadow(color: Color(0x1A000000), blurRadius: 20, offset: Offset(0, 8)),
+          BoxShadow(
+            color: Color(0x1A000000),
+            blurRadius: 20,
+            offset: Offset(0, 8),
+          ),
         ],
       ),
       child: Row(
@@ -361,9 +384,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         children: [
           const MIcon(MSym.check_circle, size: 18, color: C.emerald500),
           const SizedBox(width: 8),
-          Text(_toastMsg,
-              style:
-                  TS.body(size: 12, weight: FontWeight.w500, color: _kOnSurface)),
+          Text(
+            _toastMsg,
+            style: TS.body(
+              size: 12,
+              weight: FontWeight.w500,
+              color: _kOnSurface,
+            ),
+          ),
         ],
       ),
     );
@@ -378,7 +406,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         border: Border.all(color: _kSurfaceHigh.withValues(alpha: 0.4)),
         boxShadow: const [
           BoxShadow(
-              color: Color(0x08191C20), blurRadius: 8, offset: Offset(0, 2)),
+            color: Color(0x08191C20),
+            blurRadius: 8,
+            offset: Offset(0, 2),
+          ),
         ],
       ),
       child: child,
@@ -463,9 +494,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               children: [
                 const MIcon(MSym.photo_camera, size: 15, color: C.violet500),
                 const SizedBox(width: 4),
-                Text('轻触更换头像照片 / 拍照识别',
-                    style: TS.body(
-                        size: 13, weight: FontWeight.w500, color: C.violet500)),
+                Text(
+                  '轻触更换头像照片 / 拍照识别',
+                  style: TS.body(
+                    size: 13,
+                    weight: FontWeight.w500,
+                    color: C.violet500,
+                  ),
+                ),
               ],
             ),
           ),
@@ -482,9 +518,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               children: [
                 const PulsingDot(color: C.emerald500, size: 6),
                 const SizedBox(width: 6),
-                Text('资深独立开发者 · FlowAI Pro 极客会员',
-                    style: TS.body(
-                        size: 12, weight: FontWeight.w500, color: _kOnSurface)),
+                Text(
+                  '资深独立开发者 · FlowAI Pro 极客会员',
+                  style: TS.body(
+                    size: 12,
+                    weight: FontWeight.w500,
+                    color: _kOnSurface,
+                  ),
+                ),
               ],
             ),
           ),
@@ -505,14 +546,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('基础资料',
-                    style: TS.px('12',
-                        family: F.mono,
-                        weight: FontWeight.w600,
-                        color: _kOutline,
-                        letterSpacing: 0.5)),
-                Text('个人及名片展示',
-                    style: TS.body(size: 12, color: _kOutline)),
+                Text(
+                  '基础资料',
+                  style: TS.px(
+                    '12',
+                    family: F.mono,
+                    weight: FontWeight.w600,
+                    color: _kOutline,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+                Text('个人及名片展示', style: TS.body(size: 12, color: _kOutline)),
               ],
             ),
           ),
@@ -524,9 +568,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               children: [
                 SizedBox(
                   width: 96,
-                  child: Text('昵称',
-                      style: TS.body(
-                          size: 14, weight: FontWeight.w500, color: _kOnSurface)),
+                  child: Text(
+                    '昵称',
+                    style: TS.body(
+                      size: 14,
+                      weight: FontWeight.w500,
+                      color: _kOnSurface,
+                    ),
+                  ),
                 ),
                 Expanded(
                   child: Row(
@@ -538,15 +587,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           textAlign: TextAlign.right,
                           cursorColor: C.emerald500,
                           style: TS.body(
-                              size: 14,
-                              weight: FontWeight.w500,
-                              color: _kOnSurface),
+                            size: 14,
+                            weight: FontWeight.w500,
+                            color: _kOnSurface,
+                          ),
                           decoration: InputDecoration.collapsed(
                             hintText: '输入昵称',
                             hintStyle: TS.body(
-                                size: 14,
-                                weight: FontWeight.w500,
-                                color: _kOutline),
+                              size: 14,
+                              weight: FontWeight.w500,
+                              color: _kOutline,
+                            ),
                           ),
                         ),
                       ),
@@ -577,28 +628,40 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('智流用户 ID',
-                          style: TS.body(
-                              size: 14,
-                              weight: FontWeight.w500,
-                              color: _kOnSurface)),
+                      Text(
+                        '智流用户 ID',
+                        style: TS.body(
+                          size: 14,
+                          weight: FontWeight.w500,
+                          color: _kOnSurface,
+                        ),
+                      ),
                       const SizedBox(height: 2),
-                      Text('系统唯一标识，不可更改',
-                          style: TS.body(size: 11, color: _kOutline)),
+                      Text(
+                        '系统唯一标识，不可更改',
+                        style: TS.body(size: 11, color: _kOutline),
+                      ),
                     ],
                   ),
                 ),
                 const SizedBox(width: 6),
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: _kSurfaceLow,
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  child: Text(_uid,
-                      style: TS.mono(
-                          size: 13, weight: FontWeight.w600, color: _kOnSurfaceVariant)),
+                  child: Text(
+                    _uid,
+                    style: TS.mono(
+                      size: 13,
+                      weight: FontWeight.w600,
+                      color: _kOnSurfaceVariant,
+                    ),
+                  ),
                 ),
                 const SizedBox(width: 6),
                 GestureDetector(
@@ -631,13 +694,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('身份标签与专长',
-                        style: TS.body(
-                            size: 14,
-                            weight: FontWeight.w500,
-                            color: _kOnSurface)),
-                    Text('公开主页展示',
-                        style: TS.body(size: 11, color: _kOutline)),
+                    Text(
+                      '身份标签与专长',
+                      style: TS.body(
+                        size: 14,
+                        weight: FontWeight.w500,
+                        color: _kOnSurface,
+                      ),
+                    ),
+                    Text('公开主页展示', style: TS.body(size: 11, color: _kOutline)),
                   ],
                 ),
                 const SizedBox(height: 8),
@@ -661,13 +726,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('个人财务签名',
-                        style: TS.body(
-                            size: 14,
-                            weight: FontWeight.w500,
-                            color: _kOnSurface)),
-                    Text('${_bioCtrl.text.length}/60',
-                        style: TS.mono(size: 11, color: _kOutline)),
+                    Text(
+                      '个人财务签名',
+                      style: TS.body(
+                        size: 14,
+                        weight: FontWeight.w500,
+                        color: _kOnSurface,
+                      ),
+                    ),
+                    Text(
+                      '${_bioCtrl.text.length}/60',
+                      style: TS.mono(size: 11, color: _kOutline),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 6),
@@ -688,13 +758,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     contentPadding: const EdgeInsets.all(10),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide:
-                          BorderSide(color: _kSurfaceHigh.withValues(alpha: 0.6)),
+                      borderSide: BorderSide(
+                        color: _kSurfaceHigh.withValues(alpha: 0.6),
+                      ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide:
-                          const BorderSide(color: C.emerald500, width: 1.5),
+                      borderSide: const BorderSide(
+                        color: C.emerald500,
+                        width: 1.5,
+                      ),
                     ),
                   ),
                 ),
@@ -729,15 +802,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(tag.label,
-              style: TS.body(size: 12, weight: FontWeight.w500, color: tag.color)),
+          Text(
+            tag.label,
+            style: TS.body(size: 12, weight: FontWeight.w500, color: tag.color),
+          ),
           const SizedBox(width: 4),
           GestureDetector(
             onTap: () => setState(() {
               _tags = _tags.where((t) => t != tag).toList();
             }),
-            child: MIcon(MSym.close,
-                size: 13, color: tag.color.withValues(alpha: 0.6)),
+            child: MIcon(
+              MSym.close,
+              size: 13,
+              color: tag.color.withValues(alpha: 0.6),
+            ),
           ),
         ],
       ),
@@ -758,9 +836,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           children: [
             const MIcon(MSym.add, size: 13, color: _kOnSurfaceVariant),
             const SizedBox(width: 4),
-            Text('添加标签',
-                style: TS.body(
-                    size: 12, weight: FontWeight.w500, color: _kOnSurfaceVariant)),
+            Text(
+              '添加标签',
+              style: TS.body(
+                size: 12,
+                weight: FontWeight.w500,
+                color: _kOnSurfaceVariant,
+              ),
+            ),
           ],
         ),
       ),
@@ -778,15 +861,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('账号安全与绑定',
-                    style: TS.px('12',
-                        family: F.mono,
-                        weight: FontWeight.w600,
-                        color: _kOutline,
-                        letterSpacing: 0.5)),
-                Text('安全防护等级：高',
-                    style: TS.body(
-                        size: 12, weight: FontWeight.w500, color: C.emerald500)),
+                Text(
+                  '账号安全与绑定',
+                  style: TS.px(
+                    '12',
+                    family: F.mono,
+                    weight: FontWeight.w600,
+                    color: _kOutline,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+                Text(
+                  '安全防护等级：高',
+                  style: TS.body(
+                    size: 12,
+                    weight: FontWeight.w500,
+                    color: C.emerald500,
+                  ),
+                ),
               ],
             ),
           ),
@@ -797,18 +889,28 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             title: '绑定手机号',
             trailing: Row(
               children: [
-                Text('138 **** 9201',
-                    style: TS.mono(
-                        size: 12, weight: FontWeight.w500, color: _kOnSurfaceVariant)),
+                Text(
+                  '138 **** 9201',
+                  style: TS.mono(
+                    size: 12,
+                    weight: FontWeight.w500,
+                    color: _kOnSurfaceVariant,
+                  ),
+                ),
                 const SizedBox(width: 8),
                 _verifyBadge(MSym.check_circle, '已验证'),
                 const SizedBox(width: 8),
                 GestureDetector(
                   onTap: () => _toast('请通过短信验证码修改手机号'),
                   behavior: HitTestBehavior.opaque,
-                  child: Text('更换',
-                      style: TS.body(
-                          size: 12, weight: FontWeight.w500, color: C.violet500)),
+                  child: Text(
+                    '更换',
+                    style: TS.body(
+                      size: 12,
+                      weight: FontWeight.w500,
+                      color: C.violet500,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -819,9 +921,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             title: '绑定邮箱',
             trailing: Row(
               children: [
-                Text('neo.hacker@neuralflow.ai',
-                    style: TS.mono(
-                        size: 12, weight: FontWeight.w500, color: _kOnSurfaceVariant)),
+                Text(
+                  'neo.hacker@neuralflow.ai',
+                  style: TS.mono(
+                    size: 12,
+                    weight: FontWeight.w500,
+                    color: _kOnSurfaceVariant,
+                  ),
+                ),
                 const SizedBox(width: 8),
                 _verifyBadge(MSym.verified, '已认证'),
               ],
@@ -833,40 +940,45 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             title: '微信快捷登录',
             trailing: Row(
               children: [
-                Text('已绑定（Alex_Chen_Tech）',
-                    style: TS.body(
-                        size: 12, weight: FontWeight.w500, color: _kOnSurfaceVariant)),
-                const SizedBox(width: 4),
-                const MIcon(MSym.chevron_right, size: 16, color: _kOutline),
-              ],
-            ),
-          ),
-          _securityRow(
-            bottomBorder: false,
-            leading:
-                const MIcon(MSym.fingerprint, size: 18, color: _kOnSurface),
-            title: 'Apple ID 登录',
-            subtitle: 'Touch ID / Face ID 快速授权',
-            trailing: Row(
-              children: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                  decoration: BoxDecoration(
-                    color: _kSurfaceContainer,
-                    borderRadius: BorderRadius.circular(6),
+                Text(
+                  '已绑定（Alex_Chen_Tech）',
+                  style: TS.body(
+                    size: 12,
+                    weight: FontWeight.w500,
+                    color: _kOnSurfaceVariant,
                   ),
-                  child: Text('已关联',
-                      style: TS.body(
-                          size: 11,
-                          weight: FontWeight.w500,
-                          color: _kOnSurface)),
                 ),
                 const SizedBox(width: 4),
                 const MIcon(MSym.chevron_right, size: 16, color: _kOutline),
               ],
             ),
           ),
+          // _securityRow(
+          //   bottomBorder: false,
+          //   leading:
+          //       const MIcon(MSym.fingerprint, size: 18, color: _kOnSurface),
+          //   title: 'Apple ID 登录',
+          //   subtitle: 'Touch ID / Face ID 快速授权',
+          //   trailing: Row(
+          //     children: [
+          //       Container(
+          //         padding:
+          //             const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+          //         decoration: BoxDecoration(
+          //           color: _kSurfaceContainer,
+          //           borderRadius: BorderRadius.circular(6),
+          //         ),
+          //         child: Text('已关联',
+          //             style: TS.body(
+          //                 size: 11,
+          //                 weight: FontWeight.w500,
+          //                 color: _kOnSurface)),
+          //       ),
+          //       const SizedBox(width: 4),
+          //       const MIcon(MSym.chevron_right, size: 16, color: _kOutline),
+          //     ],
+          //   ),
+          // ),
         ],
       ),
     );
@@ -889,22 +1001,32 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               leading,
               const SizedBox(width: 8),
               if (subtitle == null)
-                Text(title,
-                    style: TS.body(
-                        size: 14, weight: FontWeight.w500, color: _kOnSurface))
+                Text(
+                  title,
+                  style: TS.body(
+                    size: 14,
+                    weight: FontWeight.w500,
+                    color: _kOnSurface,
+                  ),
+                )
               else
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(title,
-                          style: TS.body(
-                              size: 14,
-                              weight: FontWeight.w500,
-                              color: _kOnSurface)),
+                      Text(
+                        title,
+                        style: TS.body(
+                          size: 14,
+                          weight: FontWeight.w500,
+                          color: _kOnSurface,
+                        ),
+                      ),
                       const SizedBox(height: 2),
-                      Text(subtitle,
-                          style: TS.body(size: 11, color: _kOutline)),
+                      Text(
+                        subtitle,
+                        style: TS.body(size: 11, color: _kOutline),
+                      ),
                     ],
                   ),
                 ),
@@ -930,15 +1052,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         children: [
           MIcon(icon, size: 12, color: _kPrimary),
           const SizedBox(width: 2),
-          Text(label,
-              style: TS.body(
-                  size: 11, weight: FontWeight.w500, color: _kPrimary)),
+          Text(
+            label,
+            style: TS.body(size: 11, weight: FontWeight.w500, color: _kPrimary),
+          ),
         ],
       ),
     );
   }
 
-  Widget _avatarOption(IconData icon, String label, Color color, VoidCallback onTap) {
+  Widget _avatarOption(
+    IconData icon,
+    String label,
+    Color color,
+    VoidCallback onTap,
+  ) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -951,9 +1079,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           children: [
             MIcon(icon, size: 26, color: color),
             const SizedBox(height: 6),
-            Text(label,
-                style: TS.body(
-                    size: 12, weight: FontWeight.w600, color: _kOnSurface)),
+            Text(
+              label,
+              style: TS.body(
+                size: 12,
+                weight: FontWeight.w600,
+                color: _kOnSurface,
+              ),
+            ),
           ],
         ),
       ),

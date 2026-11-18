@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../core/msym.dart';
 import '../core/palette.dart';
@@ -53,17 +53,14 @@ class _BudgetScreenState extends State<BudgetScreen> {
                 Positioned.fill(
                   child: ScreenBody(
                     child: SingleChildScrollView(
-                      padding: EdgeInsets.fromLTRB(
-                        16,
-                        16,
-                        16,
-                        MediaQuery.paddingOf(context).bottom + 84,
+                      padding: PageContentInsets(
+                        bottom: MediaQuery.paddingOf(context).bottom + 84,
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           _trackTabs(),
-                          const SizedBox(height: 14),
+                          const SizedBox(height: kCardGap),
                           if (_track == 0) ..._lifestyleTrack(),
                           if (_track == 1) ..._computeTrack(),
                         ],
@@ -385,9 +382,9 @@ class _BudgetScreenState extends State<BudgetScreen> {
         percentLabel: '总消耗进度',
         percentValue: '70.4%',
       ),
-      const SizedBox(height: 14),
+      const SizedBox(height: kCardGap),
       _quickBudgetCard(),
-      const SizedBox(height: 14),
+      const SizedBox(height: kCardGap),
       _categoryBreakdownCard(),
     ];
   }
@@ -598,7 +595,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
               Text('共3项', style: TS.body(size: 11, color: _kOnSurfaceVariant)),
             ],
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: kCardGap),
           row(
             icon: MSym.restaurant,
             iconColor: C.orange600,
@@ -609,7 +606,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
             progress: 0.72,
             progressColor: C.orange500,
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: kCardGap),
           row(
             icon: MSym.home,
             iconColor: C.blue600,
@@ -622,7 +619,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
             progress: 1.0,
             progressColor: _kCriticalRose,
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: kCardGap),
           row(
             icon: MSym.directions_subway,
             iconColor: C.emerald600,
@@ -661,9 +658,9 @@ class _BudgetScreenState extends State<BudgetScreen> {
         percentLabel: '消耗占比',
         percentValue: '74.2%',
       ),
-      const SizedBox(height: 14),
+      const SizedBox(height: kCardGap),
       _modelQuotaCard(),
-      const SizedBox(height: 14),
+      const SizedBox(height: kCardGap),
       _riskControlCard(),
     ];
   }
@@ -782,7 +779,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
               Text('共3个池', style: TS.body(size: 11, color: _kOnSurfaceVariant)),
             ],
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: kCardGap),
           pool(
             icon: MSym.api,
             iconColor: C.emerald600,
@@ -794,7 +791,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
             progress: 0.764,
             progressColor: _kAuroraGreen,
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: kCardGap),
           pool(
             icon: MSym.psychology,
             iconColor: _kCyberViolet,
@@ -807,7 +804,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
             progress: 0.846,
             progressColor: _kCyberViolet,
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: kCardGap),
           pool(
             icon: MSym.draw,
             iconColor: _kSecondary,
@@ -934,7 +931,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
         top: false,
         bottom: false,
         child: Padding(
-          padding: const EdgeInsets.all(12),
+          padding: const PageContentInsets(),
           child: Container(
             height: 44,
             decoration: BoxDecoration(

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Tailwind 调色板 + 设计系统颜色（与 HTML 设计稿中的 class 完全对应）。
 class C {

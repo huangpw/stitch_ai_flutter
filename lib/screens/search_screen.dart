@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../core/msym.dart';
 import '../core/palette.dart';
@@ -199,18 +199,18 @@ class _SearchScreenState extends State<SearchScreen> {
           GlassHeader.back(title: '全局搜索'),
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
+              padding: const PageContentInsets(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   _searchBar(),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: kCardGap),
                   _filterPills(),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: kCardGap),
                   _historySection(),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: kCardGap),
                   _resultsSection(),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: kCardGap),
                   _footer(),
                 ],
               ),
@@ -623,9 +623,9 @@ class _SearchScreenState extends State<SearchScreen> {
         if (hits.isEmpty)
           _emptyState()
         else
-          for (final hit in hits) ...[
-            _ResultCard(hit: hit),
-            const SizedBox(height: 8),
+          for (var i = 0; i < hits.length; i++) ...[
+            if (i > 0) const SizedBox(height: kCardGap),
+            _ResultCard(hit: hits[i]),
           ],
       ],
     );

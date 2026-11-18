@@ -25,7 +25,7 @@ void main() {
   testWidgets('应用能启动并渲染登录页', (tester) async {
     await tester.pumpWidget(const StitchAiApp());
     await tester.pump(const Duration(milliseconds: 400));
-    expect(find.text('立即登录 / 开始体验'), findsOneWidget);
+    expect(find.text('立即登录'), findsOneWidget);
     expect(find.text('FlowAI'), findsOneWidget);
   });
 }

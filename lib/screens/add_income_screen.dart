@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../core/msym.dart';
 import '../core/palette.dart';
@@ -117,18 +117,18 @@ class _AddIncomeScreenState extends State<AddIncomeScreen> {
           ),
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
+              padding: const PageContentInsets(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   _modeSegment(),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: kCardGap),
                   _amountCard(),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: kCardGap),
                   _categoryCard(),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: kCardGap),
                   _accountCard(),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: kCardGap),
                   _advancedCard(),
                 ],
               ),
@@ -521,7 +521,7 @@ class _AddIncomeScreenState extends State<AddIncomeScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: kCardGap),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -529,9 +529,9 @@ class _AddIncomeScreenState extends State<AddIncomeScreen> {
               item(1),
               item(2),
               item(3),
-            ].withSpacing(12),
+            ].withSpacing(kCardGap),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: kCardGap),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -539,7 +539,7 @@ class _AddIncomeScreenState extends State<AddIncomeScreen> {
               item(5),
               item(6),
               item(7),
-            ].withSpacing(12),
+            ].withSpacing(kCardGap),
           ),
         ],
       ),
@@ -782,7 +782,7 @@ class _AddIncomeScreenState extends State<AddIncomeScreen> {
       child: SafeArea(
         top: false,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+          padding: const PageContentInsets(),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

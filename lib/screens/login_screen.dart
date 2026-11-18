@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../core/msym.dart';
 import '../core/palette.dart';
@@ -17,34 +17,36 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  bool _smsMode = false; // 验证模式 Tab：false=账号密码 true=短信快捷
+  static const double _loginControlHeight = 46;
+
+  // bool _smsMode = false; // 验证模式 Tab：false=账号密码 true=短信快捷
   bool _pwdVisible = false;
   bool _remember = true;
   bool _agreed = true;
   bool _shakeAgreement = false; // 未勾选协议时的红圈提示
   bool _submitting = false;
   bool _submitted = false;
-  bool _showBioToast = false;
-  int _countdown = 0;
-  Timer? _timer;
+  // int _countdown = 0;
+  // Timer? _timer;
   final _pwdController = TextEditingController(text: '');
 
   @override
   void dispose() {
-    _timer?.cancel();
+    // _timer?.cancel();
     _pwdController.dispose();
     super.dispose();
   }
 
-  void _sendCode() {
-    if (_countdown > 0) return;
-    setState(() => _countdown = 60);
-    _timer = Timer.periodic(const Duration(seconds: 1), (t) {
-      if (!mounted) return t.cancel();
-      setState(() => _countdown--);
-      if (_countdown <= 0) t.cancel();
-    });
-  }
+  // 短信验证暂时隐藏，保留倒计时实现便于恢复。
+  // void _sendCode() {
+  //   if (_countdown > 0) return;
+  //   setState(() => _countdown = 60);
+  //   _timer = Timer.periodic(const Duration(seconds: 1), (t) {
+  //     if (!mounted) return t.cancel();
+  //     setState(() => _countdown--);
+  //     if (_countdown <= 0) t.cancel();
+  //   });
+  // }
 
   void _submit() {
     if (!_agreed) {
@@ -74,13 +76,6 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  void _bio() {
-    setState(() => _showBioToast = true);
-    Timer(const Duration(milliseconds: 2400), () {
-      if (mounted) setState(() => _showBioToast = false);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,103 +86,28 @@ class _LoginScreenState extends State<LoginScreen> {
             // ---- 环境光晕背景（blur-3xl 渐变圆）----
             const _AmbientGlow(),
             SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const PageContentInsets(),
               child: ConstrainedBox(
                 constraints: BoxConstraints(
                   minHeight:
                       MediaQuery.of(context).size.height -
-                      MediaQuery.of(context).padding.vertical,
+                      MediaQuery.of(context).padding.vertical -
+                      kPageInset * 2,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const SizedBox(height: 12),
                     const _BrandHeader(),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: kCardGap),
                     _loginCard(),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: kCardGap),
                     _agreementFooter(),
-                    const SizedBox(height: 24),
                   ],
-                ),
-              ),
-            ),
-            // ---- 生物识别成功 Toast ----
-            AnimatedSlide(
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeOutCubic,
-              offset: _showBioToast ? Offset.zero : const Offset(0, 3),
-              child: AnimatedOpacity(
-                duration: const Duration(milliseconds: 300),
-                opacity: _showBioToast ? 1 : 0,
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      bottom: 24,
-                      left: 16,
-                      right: 16,
-                    ),
-                    child: _bioToast(),
-                  ),
                 ),
               ),
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _bioToast() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: C.slate200),
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0x33000000),
-            blurRadius: 24,
-            offset: Offset(0, 8),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 36,
-            height: 36,
-            decoration: BoxDecoration(
-              color: C.emerald100,
-              shape: BoxShape.circle,
-            ),
-            child: const Center(
-              child: MIcon(MSym.fingerprint, size: 22, color: C.emerald600),
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Face ID / Touch ID 识别成功',
-                  style: TS.body(
-                    size: 12,
-                    weight: FontWeight.w600,
-                    color: C.slate900,
-                  ),
-                ),
-                Text(
-                  '正在同步加密密钥并进入记账工作台...',
-                  style: TS.body(size: 12, color: C.slate500),
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }
@@ -228,16 +148,40 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-          const SizedBox(height: 14),
-          SegTabs(
-            items: const [(MSym.key, '账号密码验证'), (MSym.sms, '短信快捷验证')],
-            index: _smsMode ? 1 : 0,
-            onChanged: (i) => setState(() => _smsMode = i == 1),
+          const SizedBox(height: kCardGap),
+          // 原始验证方式切换代码保留，短信快捷验证继续隐藏。
+          // SegTabs(
+          //   items: const [(MSym.key, '账号密码验证'), (MSym.sms, '短信快捷验证')],
+          //   index: _smsMode ? 1 : 0,
+          //   onChanged: (i) => setState(() => _smsMode = i == 1),
+          // ),
+          Container(
+            height: 36,
+            decoration: BoxDecoration(
+              color: C.emerald50,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const MIcon(MSym.key, size: 15, color: C.emerald700),
+                const SizedBox(width: 4),
+                Text(
+                  '账号密码验证',
+                  style: TS.body(
+                    size: 14,
+                    weight: FontWeight.w600,
+                    color: C.emerald700,
+                  ),
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 12),
           _accountField(),
-          const SizedBox(height: 12),
-          if (_smsMode) _smsField() else _passwordField(),
+          const SizedBox(height: 18),
+          // if (_smsMode) _smsField() else _passwordField(),
+          _passwordField(),
           const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -274,7 +218,7 @@ class _LoginScreenState extends State<LoginScreen> {
           // ),
           const SizedBox(height: 12),
           _submitBtn(),
-          const SizedBox(height: 8),
+          const SizedBox(height: 18),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -301,7 +245,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 18),
           _divider(),
           const SizedBox(height: 12),
           const _SocialRow(),
@@ -311,73 +255,80 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _accountField() {
-    return Stack(
-      alignment: Alignment.centerRight,
-      children: [
-        FieldX(
-          hint: '请输入手机号或邮箱',
-          icon: MSym.person,
-          initialText: 'neo.hacker@neuralflow.ai',
-        ),
-        const Padding(
-          padding: EdgeInsets.only(right: 12),
-          child: MIcon(MSym.verified, size: 18, color: C.emerald600),
-        ),
-      ],
+    return SizedBox(
+      height: _loginControlHeight,
+      child: Stack(
+        alignment: Alignment.centerRight,
+        children: [
+          FieldX(
+            hint: '请输入手机号或邮箱',
+            icon: MSym.person,
+            initialText: 'neo.hacker@neuralflow.ai',
+          ),
+          const Padding(
+            padding: EdgeInsets.only(right: 12),
+            child: MIcon(MSym.verified, size: 18, color: C.emerald600),
+          ),
+        ],
+      ),
     );
   }
 
   Widget _passwordField() {
-    return FieldX(
-      controller: _pwdController,
-      hint: '请输入登录密码',
-      icon: MSym.lock,
-      obscure: !_pwdVisible,
-      mono: true,
-      trailing: GestureDetector(
-        onTap: () => setState(() => _pwdVisible = !_pwdVisible),
-        child: MIcon(
-          _pwdVisible ? MSym.visibility : MSym.visibility_off,
-          size: 18,
-          color: C.slate400,
+    return SizedBox(
+      height: _loginControlHeight,
+      child: FieldX(
+        controller: _pwdController,
+        hint: '请输入登录密码',
+        icon: MSym.lock,
+        obscure: !_pwdVisible,
+        mono: true,
+        trailing: GestureDetector(
+          onTap: () => setState(() => _pwdVisible = !_pwdVisible),
+          child: MIcon(
+            _pwdVisible ? MSym.visibility : MSym.visibility_off,
+            size: 18,
+            color: C.slate400,
+          ),
         ),
       ),
     );
   }
 
-  Widget _smsField() {
-    return Row(
-      children: [
-        Expanded(
-          child: FieldX(
-            hint: '6位短信动态码',
-            icon: MSym.shield,
-            maxLength: 6,
-            mono: true,
-          ),
-        ),
-        const SizedBox(width: 8),
-        GestureDetector(
-          onTap: _sendCode,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 13),
-            decoration: BoxDecoration(
-              color: _countdown > 0 ? C.slate100 : C.emerald50,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Text(
-              _countdown > 0 ? '$_countdown s 后重发' : '获取验证码',
-              style: TS.body(
-                size: 12,
-                weight: FontWeight.w600,
-                color: _countdown > 0 ? C.slate400 : C.emerald600,
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
+  // 短信验证码输入区域暂时隐藏，保留原始实现。
+  // Widget _smsField() {
+  //   return Row(
+  //     children: [
+  //       Expanded(
+  //         child: FieldX(
+  //           hint: '6位短信动态码',
+  //           icon: MSym.shield,
+  //           maxLength: 6,
+  //           mono: true,
+  //         ),
+  //       ),
+  //       const SizedBox(width: 8),
+  //       GestureDetector(
+  //         onTap: _sendCode,
+  //         child: Container(
+  //           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 13),
+  //           decoration: BoxDecoration(
+  //             color: _countdown > 0 ? C.slate100 : C.emerald50,
+  //             borderRadius: BorderRadius.circular(12),
+  //           ),
+  //           child: Text(
+  //             _countdown > 0 ? '$_countdown s 后重发' : '获取验证码',
+  //             style: TS.body(
+  //               size: 12,
+  //               weight: FontWeight.w600,
+  //               color: _countdown > 0 ? C.slate400 : C.emerald600,
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _rememberRow() {
     return GestureDetector(
@@ -400,7 +351,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: GestureDetector(
         onTap: _submitting ? null : _submit,
         child: Container(
-          height: 54,
+          height: _loginControlHeight,
           decoration: BoxDecoration(
             color: _submitting ? C.emerald600 : C.emerald500,
             borderRadius: BorderRadius.circular(12),
@@ -437,7 +388,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ? '正在安全校验...'
                     : _submitted
                     ? '验证通过，进入中...'
-                    : '立即登录 / 开始体验',
+                    : '立即登录',
                 style: TS.body(
                   size: 16,
                   weight: FontWeight.w600,
@@ -688,7 +639,7 @@ class _BrandHeader extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 14),
+        const SizedBox(height: kCardGap),
         // 标题
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -763,7 +714,7 @@ class _SocialRow extends StatelessWidget {
     return Row(
       children: [
         for (var i = 0; i < items.length; i++) ...[
-          if (i > 0) const SizedBox(width: 10),
+          if (i > 0) const SizedBox(width: kCardGap),
           Expanded(
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 10),

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../core/msym.dart';
 import '../core/palette.dart';
@@ -41,16 +41,16 @@ class _AiAlertScreenState extends State<AiAlertScreen> {
           ),
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(16, 24, 16, 24),
+              padding: const PageContentInsets(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   _alertBanner(),
-                  const SizedBox(height: 14),
+                  const SizedBox(height: kCardGap),
                   _spendCard(),
-                  const SizedBox(height: 14),
+                  const SizedBox(height: kCardGap),
                   _attributionSection(),
-                  const SizedBox(height: 14),
+                  const SizedBox(height: kCardGap),
                   _strategySection(),
                 ],
               ),
@@ -563,7 +563,7 @@ class _AiAlertScreenState extends State<AiAlertScreen> {
       child: SafeArea(
         top: false,
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const PageContentInsets(),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,

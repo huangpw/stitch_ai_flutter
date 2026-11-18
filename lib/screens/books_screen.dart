@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 
 import '../core/msym.dart';
@@ -111,22 +111,22 @@ class _BooksScreenState extends State<BooksScreen> {
               ),
               Expanded(
                 child: SingleChildScrollView(
-                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+                  padding: const PageContentInsets(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       _ledgerSectionHeader(),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: kCardGap),
                       _ledgerCardMain(),
-                      const SizedBox(height: 14),
+                      const SizedBox(height: kCardGap),
                       _ledgerCardAi(),
-                      const SizedBox(height: 14),
+                      const SizedBox(height: kCardGap),
                       _ledgerCardFamily(),
-                      const SizedBox(height: 14),
+                      const SizedBox(height: kCardGap),
                       _memberCard(),
-                      const SizedBox(height: 14),
+                      const SizedBox(height: kCardGap),
                       _categoryCard(),
-                      const SizedBox(height: 14),
+                      const SizedBox(height: kCardGap),
                       _cloudCard(),
                     ],
                   ),
@@ -964,7 +964,7 @@ class _BooksScreenState extends State<BooksScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: kCardGap),
           // 3.1 日常生活消费类别
           Row(
             children: [
@@ -981,49 +981,49 @@ class _BooksScreenState extends State<BooksScreen> {
               Text('支持按需拖拽与隐藏', style: TS.body(size: 11, color: C.slate500)),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: kCardGap),
           Row(
             children: [
               Expanded(
                   child: dailyTile('餐饮美食', MSym.restaurant,
                       C.amber500.withValues(alpha: 0.15), C.amber500,
                       '早午晚/外卖/咖啡饮品')),
-              const SizedBox(width: 8),
+              const SizedBox(width: kCardGap),
               Expanded(
                   child: dailyTile('交通出行', MSym.directions_subway,
                       C.emerald700.withValues(alpha: 0.15), C.emerald700,
                       '打车/地铁/加油保养')),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: kCardGap),
           Row(
             children: [
               Expanded(
                   child: dailyTile('日用百货', MSym.shopping_bag,
                       C.cyan500.withValues(alpha: 0.15), C.cyan500,
                       '商超生活/居家杂货')),
-              const SizedBox(width: 8),
+              const SizedBox(width: kCardGap),
               Expanded(
                   child: dailyTile('住房租金', MSym.home,
                       C.blue500.withValues(alpha: 0.15), C.blue500,
                       '房租/物业/水电宽带')),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: kCardGap),
           Row(
             children: [
               Expanded(
                   child: dailyTile('数码娱乐', MSym.sports_esports,
                       C.violet600.withValues(alpha: 0.15), C.violet600,
                       '游戏影音/电子数码')),
-              const SizedBox(width: 8),
+              const SizedBox(width: kCardGap),
               Expanded(
                   child: dailyTile('医疗健康', MSym.favorite,
                       C.rose500.withValues(alpha: 0.15), C.rose500,
                       '体检/购药门诊/健身')),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: kCardGap),
           // 3.2 AI算力与周期订阅专属
           Container(
             padding: const EdgeInsets.only(top: 16),
@@ -1061,25 +1061,25 @@ class _BooksScreenState extends State<BooksScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: kCardGap),
                 Row(
                   children: [
                     Expanded(
                         child: aiTile('大模型API', MSym.psychology, C.violet600,
                             'OpenAI/Claude/DeepSeek')),
-                    const SizedBox(width: 8),
+                    const SizedBox(width: kCardGap),
                     Expanded(
                         child: aiTile('SaaS周期订阅', MSym.autorenew, C.violet500,
                             'GitHub/Figma/Notion')),
                   ],
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: kCardGap),
                 Row(
                   children: [
                     Expanded(
                         child: aiTile('GPU算力租用', MSym.developer_board,
                             C.violet600, 'AWS/RunPod/AutoDL')),
-                    const SizedBox(width: 8),
+                    const SizedBox(width: kCardGap),
                     Expanded(
                         child: aiTile('开发工具套件', MSym.code, C.violet500,
                             'JetBrains/Cursor/Vercel')),
@@ -1201,7 +1201,7 @@ class _BooksScreenState extends State<BooksScreen> {
       child: SafeArea(
         top: false,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 10, 16, 12),
+          padding: const PageContentInsets(),
           child: GestureDetector(
             onTap: _openAddLedgerSheet,
             behavior: HitTestBehavior.opaque,
@@ -1362,7 +1362,7 @@ class _AddLedgerSheetState extends State<_AddLedgerSheet> {
         padding:
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Container(
-          margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+          margin: const EdgeInsets.fromLTRB(kPageInset, 0, kPageInset, kPageInset),
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: Colors.white,

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// 字体家族与 Tailwind 字号体系（与设计稿一一对应）。
 class F {

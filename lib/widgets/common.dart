@@ -1,6 +1,6 @@
 import 'dart:ui' show ImageFilter;
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../core/msym.dart';
 import '../core/palette.dart';
@@ -12,6 +12,18 @@ import 'app_tab_navigation.dart';
 
 /// 页面画布背景色（绝大多数屏幕为冰晶白 #F8F9FF）。
 const kCanvas = Color(0xFFF8F9FF);
+
+/// 页面内容外间距（Flutter 逻辑像素）。
+const double kPageInset = 14;
+
+/// 所有页面的独立卡片、嵌套卡片组与卡片网格之间的间距。
+const double kCardGap = 12;
+
+/// 底部悬浮导航或固定操作栏可通过 [bottom] 额外预留滚动空间。
+class PageContentInsets extends EdgeInsets {
+  const PageContentInsets({double bottom = kPageInset})
+    : super.fromLTRB(kPageInset, kPageInset, kPageInset, bottom);
+}
 
 /// 通用白色卡片（rounded-2xl + 细描边 + 微阴影）。
 class CardX extends StatelessWidget {
@@ -675,17 +687,18 @@ class GlassHeader extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    left: 8,
+                    // 返回图标距左侧 12：4 + (40 - 24) / 2。
+                    left: leading is NavBarBackButton ? 4 : kPageInset,
                     child: SizedBox(
                       height: 56,
-                      child: Row(children: [if (leading != null) leading!]),
+                      child: Row(children: [?leading]),
                     ),
                   ),
                   Positioned(
-                    right: 8,
+                    right: kPageInset,
                     height: 56,
                     child: Row(
-                      children: [...actions, const SizedBox(width: 8)],
+                      children: actions,
                     ),
                   ),
                 ],

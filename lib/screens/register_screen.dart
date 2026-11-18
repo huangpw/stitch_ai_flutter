@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../core/msym.dart';
 import '../core/palette.dart';
@@ -75,16 +75,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
           GlassHeader.back(title: '注册账户'),
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
+              padding: const PageContentInsets(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   _brandHeader(),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: kCardGap),
                   _registerCard(),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: kCardGap),
                   _termsRow(),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: kCardGap),
                   GradientButton(
                     label: '立即注册并开启体验',
                     icon: MSym.arrow_forward,
@@ -97,9 +97,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: kCardGap),
                   _loginRedirect(),
-                  const SizedBox(height: 32),
+                  const SizedBox(height: kCardGap),
                   _socialSection(),
                 ],
               ),
@@ -462,7 +462,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         Row(
           children: [
             for (var i = 0; i < items.length; i++) ...[
-              if (i > 0) const SizedBox(width: 12),
+              if (i > 0) const SizedBox(width: kCardGap),
               Expanded(
                 child: Container(
                   padding:

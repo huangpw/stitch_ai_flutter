@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../core/msym.dart';
 import '../core/type.dart';
@@ -94,20 +94,20 @@ class _AiScanScreenState extends State<AiScanScreen>
             child: SafeArea(
               top: false,
               child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
+                padding: const PageContentInsets(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     _statusPill(),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: kCardGap),
                     _uploadTabs(),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: kCardGap),
                     _viewfinderCard(),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: kCardGap),
                     _conclusionCard(),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: kCardGap),
                     _fieldsCard(),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: kCardGap),
                     _confirmBlock(),
                   ],
                 ),
@@ -552,7 +552,7 @@ class _AiScanScreenState extends State<AiScanScreen>
                   bar(88, h: 10, c: _kSurfaceContainerHigh),
                 ],
               ),
-              const SizedBox(height: 14),
+              const SizedBox(height: kCardGap),
               bar(150),
               const SizedBox(height: 8),
               bar(120),

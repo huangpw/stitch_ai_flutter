@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// 页面内的入口切换现有主 Tab，保留导航栈和各页状态。
 class AppTabNavigation extends InheritedWidget {

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../core/msym.dart';
 import '../core/palette.dart';
@@ -94,19 +94,18 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
               children: [
                 Positioned.fill(
                   child: SingleChildScrollView(
-                    padding:
-                        EdgeInsets.fromLTRB(16, 16, 16, 132 + bottomInset),
+                    padding: PageContentInsets(bottom: 132 + bottomInset),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         _segmentedControl(),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: kCardGap),
                         _amountCard(),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: kCardGap),
                         _categoryCard(),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: kCardGap),
                         _accountCard(),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: kCardGap),
                         _advancedCard(),
                       ],
                     ),
@@ -138,7 +137,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
               color: Color(0x0F0F172A), blurRadius: 20, offset: Offset(0, -4)),
         ],
       ),
-      padding: EdgeInsets.fromLTRB(16, 10, 16, 8 + bottomInset),
+      padding: PageContentInsets(bottom: kPageInset + bottomInset),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -503,8 +502,8 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             padding: EdgeInsets.zero,
-            mainAxisSpacing: 8,
-            crossAxisSpacing: 8,
+            mainAxisSpacing: kCardGap,
+            crossAxisSpacing: kCardGap,
             childAspectRatio: 1.15,
             children: [
               for (var i = 0; i < _categories.length; i++) _catTile(i),
@@ -602,7 +601,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
             child: Row(
               children: [
                 for (var i = 0; i < _accounts.length; i++) ...[
-                  if (i > 0) const SizedBox(width: 10),
+                  if (i > 0) const SizedBox(width: kCardGap),
                   _accountChip(i),
                 ],
               ],

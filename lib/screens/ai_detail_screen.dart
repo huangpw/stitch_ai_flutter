@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 
 import '../core/msym.dart';
@@ -93,20 +93,20 @@ class _AiDetailScreenState extends State<AiDetailScreen> {
           ),
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+              padding: const PageContentInsets(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   _toastBanner(),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: kCardGap),
                   _orgCard(),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: kCardGap),
                   _fundsCard(),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: kCardGap),
                   _voucherCard(),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: kCardGap),
                   _flowCard(),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: kCardGap),
                   _rulesCard(),
                 ],
               ),
@@ -121,7 +121,7 @@ class _AiDetailScreenState extends State<AiDetailScreen> {
   // ===================== Toast 动效提醒 =====================
   Widget _toastBanner() {
     return Padding(
-      padding: const EdgeInsets.only(top: 12),
+      padding: EdgeInsets.zero,
       child: Container(
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
@@ -691,7 +691,7 @@ class _AiDetailScreenState extends State<AiDetailScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: kCardGap),
           Column(
             children: [
               // 支付卡
@@ -739,9 +739,13 @@ class _AiDetailScreenState extends State<AiDetailScreen> {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text('TXN_0AI_202505159821034',
-                            style: TS.mono(size: 12, weight: FontWeight.w500,
-                                color: C.slate700)),
+                        Flexible(
+                          child: Text('TXN_0AI_202505159821034',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TS.mono(size: 12, weight: FontWeight.w500,
+                                  color: C.slate700)),
+                        ),
                         const SizedBox(width: 4),
                         const MIcon(MSym.content_copy,
                             size: 13, color: C.slate400),
@@ -853,7 +857,7 @@ class _AiDetailScreenState extends State<AiDetailScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: kCardGap),
           Column(
             children: [
               _FlowItem(
@@ -866,7 +870,7 @@ class _AiDetailScreenState extends State<AiDetailScreen> {
                 amountColor: C.emerald600,
                 note: '已入账',
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: kCardGap),
               _FlowItem(
                 icon: MSym.autorenew,
                 iconBg: C.violet100,
@@ -1005,7 +1009,7 @@ class _AiDetailScreenState extends State<AiDetailScreen> {
         child: SizedBox(
           height: 80,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: kPageInset),
             child: Row(
               children: [
                 Expanded(
@@ -1124,8 +1128,10 @@ class _VoucherRow extends StatelessWidget {
       child: Row(
         children: [
           Text(label, style: TS.body(size: 13, color: C.slate500)),
-          const Spacer(),
-          value,
+          const SizedBox(width: 12),
+          Expanded(
+            child: Align(alignment: Alignment.centerRight, child: value),
+          ),
         ],
       ),
     );

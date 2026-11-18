@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../core/msym.dart';
 import '../core/palette.dart';
@@ -82,29 +82,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+              padding: const PageContentInsets(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   if (!widget.backupOnly) ...[
                     _healthCard(),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: kCardGap),
                     _appearanceSection(),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: kCardGap),
                     _currencySection(),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: kCardGap),
                     _aiRoutingSection(),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: kCardGap),
                     _securitySection(),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: kCardGap),
                   ],
                   _dataSyncSection(),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: kCardGap),
                   _storageSection(),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: kCardGap),
                   if (!widget.backupOnly) ...[
                     _switchAccountButton(),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: kCardGap),
                   ],
                   _brandFooter(),
                 ],
@@ -270,11 +270,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
               height: 1.625,
             ),
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: kCardGap),
           Row(
             children: [
               miniTile(MSym.verified_user, '硬件安全', 'FaceID 加密锁定'),
-              const SizedBox(width: 10),
+              const SizedBox(width: kCardGap),
               miniTile(MSym.sync, '云同步协议', 'WebDAV / 实时'),
             ],
           ),

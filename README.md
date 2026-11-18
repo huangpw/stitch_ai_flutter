@@ -35,6 +35,9 @@ cd build/web && python3 -m http.server 8100
 | `ai_2` | AI 订阅与充值 | `/home-ai`（Tab 2） | Tab |
 | 新版统计参考 | 账单统计 | `/home-stats`（Tab 3） | Tab |
 | `_10` | 预算控制中心 | `/budget` | 推送 |
+| 新增 | 本月预算明细（记账页「预算分析」） | `/monthly-budget` | 推送 |
+| 新增 | 本月收入明细（记账页「本月总收入」） | `/monthly-income` | 推送 |
+| 新增 | 财务净结余明细（记账页「财务净结余」） | `/monthly-balance` | 推送 |
 | `_2` | 个人中心 | `/home-profile`（Tab 4） | Tab |
 | `_6` | 新增记账 | `/add-expense` | 推送 |
 | `_11` | 新增日常收入 | `/add-income` | 推送 |

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../core/msym.dart';
 import '../core/palette.dart';
@@ -103,14 +103,14 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               children: [
                 Positioned.fill(
                   child: SingleChildScrollView(
-                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+                    padding: const PageContentInsets(),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         _filterSection(),
-                        const SizedBox(height: 8),
+                        const SizedBox(height: kCardGap),
                         _pinnedAlert(),
-                        const SizedBox(height: 14),
+                        const SizedBox(height: kCardGap),
                         _NotifGroup(
                           header: 'Today · 今天',
                           meta: '2 条新事件',
@@ -120,7 +120,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                             if (cat == 'all' || cat == 'ai') _itemAiRenewal(),
                           ],
                         ),
-                        const SizedBox(height: 14),
+                        const SizedBox(height: kCardGap),
                         _NotifGroup(
                           header: 'Yesterday · 昨天',
                           meta: '2 条归档',
@@ -129,7 +129,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                             if (cat == 'all' || cat == 'system') _itemSync(),
                           ],
                         ),
-                        const SizedBox(height: 8),
+                        const SizedBox(height: kCardGap),
                         _settingsEntry(),
                       ],
                     ),
@@ -140,7 +140,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   alignment: Alignment.bottomCenter,
                   child: Padding(
                     padding:
-                        const EdgeInsets.only(bottom: 24, left: 16, right: 16),
+                        const EdgeInsets.only(bottom: kPageInset, left: kPageInset, right: kPageInset),
                     child: IgnorePointer(
                       ignoring: !_showToast,
                       child: AnimatedSlide(
@@ -365,7 +365,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: kCardGap),
           // 描述正文
           Text.rich(
             TextSpan(
@@ -814,10 +814,10 @@ class _NotifGroup extends StatelessWidget {
       ),
     ];
     if (children.isNotEmpty) {
-      list.add(const SizedBox(height: 14));
+      list.add(const SizedBox(height: kCardGap));
       for (var i = 0; i < children.length; i++) {
         list.add(children[i]);
-        if (i < children.length - 1) list.add(const SizedBox(height: 14));
+        if (i < children.length - 1) list.add(const SizedBox(height: kCardGap));
       }
     }
     return Column(

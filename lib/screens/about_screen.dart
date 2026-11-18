@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../core/msym.dart';
 import '../core/palette.dart';
@@ -18,7 +18,7 @@ class AboutScreen extends StatelessWidget {
           GlassHeader.back(title: '关于我们'),
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
+              padding: const PageContentInsets(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -67,7 +67,7 @@ class AboutScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: kCardGap),
                   CardX(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,7 +88,7 @@ class AboutScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: kCardGap),
                   CardX(
                     child: Row(
                       children: [
