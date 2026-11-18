@@ -1,0 +1,67 @@
+name: stitch_ai_flutter
+description: "FlowAI Ledger 智流记账 — 双轨记账与 AI 算力开支管理。1:1 还原 Stitch 设计稿。"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.14.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  excel: ^4.0.6
+  pdf: ^3.12.0
+  share_plus: ^13.3.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/avatar.jpg
+    - assets/images/stats_avatar.jpg
+    - assets/fonts/StatsReportSC.ttf
+
+  fonts:
+    # ---- UI 正文字体（HTML: font-sans / Inter）----
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Inter-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Inter-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Inter-Bold.ttf
+          weight: 700
+    # ---- 展示/标题字体（HTML: Space Grotesk）----
+    - family: SpaceGrotesk
+      fonts:
+        - asset: assets/fonts/SpaceGrotesk-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/SpaceGrotesk-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/SpaceGrotesk-Bold.ttf
+          weight: 700
+    # ---- 等宽遥测字体（HTML: JetBrains Mono）----
+    - family: JetBrainsMono
+      fonts:
+        - asset: assets/fonts/JetBrainsMono-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/JetBrainsMono-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/JetBrainsMono-SemiBold.ttf
+          weight: 600
+    # ---- Material Symbols Outlined（线性图标）----
+    - family: MaterialSymbolsOutlined
+      fonts:
+        - asset: assets/fonts/MaterialSymbolsOutlined.ttf
+    # ---- Material Symbols Outlined Filled（实心图标，HTML 中 font-variation-settings "FILL" 1）----
+    - family: MaterialSymbolsOutlinedFill1
+      fonts:
+        - asset: assets/fonts/MaterialSymbolsOutlinedFill1.ttf
